@@ -30,7 +30,7 @@ public abstract non-sealed class AbstractParser implements Parser {
             return responseContainer;
         }
         if (next == null) {
-            return null;
+            return new ResponseContainer<>(null);
         }
         return next.parseChain(url);
     }
