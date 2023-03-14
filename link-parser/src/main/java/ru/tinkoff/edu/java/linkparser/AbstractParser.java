@@ -4,9 +4,9 @@ import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public abstract non-sealed class AbstractParser implements Parser {
 
@@ -39,7 +39,7 @@ public abstract non-sealed class AbstractParser implements Parser {
 
     protected List<String> getArrayFromURL(URL url) {
         if (url.getPath().isEmpty()) {
-            throw new NoSuchElementException("Path of url is empty");
+            return new ArrayList<>();
         }
         return Arrays.asList(url.getPath().substring(1).split("/"));
     }

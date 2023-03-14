@@ -7,7 +7,6 @@ import ru.tinkoff.edu.java.linkparser.dto.StackOverflowDTO;
 
 import java.net.URL;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class StackOverflowParser extends AbstractParser {
 
@@ -17,23 +16,30 @@ public class StackOverflowParser extends AbstractParser {
     @Override
     protected ResponseContainer<ILinkDTO> parseInternal(URL url) {
         if (LINK.equals(url.getHost())) {
-            int id = getQuestionId(getArrayFromURL(url));
+            Integer id = getQuestionId(getArrayFromURL(url));
+            if (id == null) {
+                return new ResponseContainer<>(null);
+            }
             return new ResponseContainer<>(new StackOverflowDTO(id));
         } else {
             return null;
         }
     }
 
-    private int getQuestionId(List<String> path) {
+    private Integer getQuestionId(List<String> path) {
         if (path.isEmpty() || path.size() < 2) {
-            throw new NoSuchElementException("Url has no elements in path");
+            return null;
         }
         for (int i = 0; i < path.size(); i++) {
             if (path.get(i).equals(PATH)) {
-                return Integer.parseInt(path.get(i + 1));
+                try {
+                    return Integer.parseInt(path.get(i + 1));
+                } catch (NumberFormatException e) {
+                    return null;
+                }
             }
         }
-        throw new NoSuchElementException("Url has no 'questions' in path");
+        return null;
     }
 
 }

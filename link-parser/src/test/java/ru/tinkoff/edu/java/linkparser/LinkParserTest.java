@@ -11,7 +11,6 @@ import ru.tinkoff.edu.java.linkparser.impl.StackOverflowParser;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.NoSuchElementException;
 
 public class LinkParserTest {
 
@@ -24,10 +23,11 @@ public class LinkParserTest {
         Assert.assertEquals(new GitHubDTO("user", "repos"), response.response());
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void testGitHubNoSuchElementException() throws MalformedURLException {
+    @Test
+    public void testGitHubInvalidPath() throws MalformedURLException {
         URL url = new URL("https://github.com/user");
-        PARSER.parseChain(url);
+        ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
+        Assert.assertNull(response.response());
     }
 
     @Test
@@ -37,22 +37,25 @@ public class LinkParserTest {
         Assert.assertEquals(new StackOverflowDTO(111), response.response());
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void testStackOverflowEmptyPath() throws MalformedURLException {
         URL url = new URL("https://stackoverflow.com");
-        PARSER.parseChain(url);
+        ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
+        Assert.assertNull(response.response());
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void testStackOverflowNoSuchElementException() throws MalformedURLException {
+    @Test
+    public void testStackOverflowInvalidPath() throws MalformedURLException {
         URL url = new URL("https://stackoverflow.com/questions");
-        PARSER.parseChain(url);
+        ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
+        Assert.assertNull(response.response());
     }
 
-    @Test(expected = NumberFormatException.class)
-    public void testStackOverflowNumberFormatException() throws MalformedURLException {
+    @Test
+    public void testStackOverflowInvalidPathWithStringId() throws MalformedURLException {
         URL url = new URL("https://stackoverflow.com/questions/aaa");
-        PARSER.parseChain(url);
+        ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
+        Assert.assertNull(response.response());
     }
 
     @Test

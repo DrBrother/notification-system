@@ -7,7 +7,6 @@ import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 
 import java.net.URL;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class GitHubParser extends AbstractParser {
 
@@ -17,8 +16,8 @@ public class GitHubParser extends AbstractParser {
     protected ResponseContainer<ILinkDTO> parseInternal(URL url) {
         if (LINK.equals(url.getHost())) {
             List<String> values = getArrayFromURL(url);
-            if (values.size() < 2) {
-                throw new NoSuchElementException("Url's path has no at least 2 elements");
+            if (values.isEmpty() || values.size() < 2) {
+                return new ResponseContainer<>(null);
             }
             return new ResponseContainer<>(new GitHubDTO(values.get(0), values.get(1)));
         } else {
