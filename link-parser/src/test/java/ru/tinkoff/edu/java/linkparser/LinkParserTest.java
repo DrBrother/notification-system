@@ -59,7 +59,7 @@ public class LinkParserTest {
     }
 
     @Test
-    public void testUnsupportedURL() throws MalformedURLException {
+    public void testUnsupportedHost() throws MalformedURLException {
         URL url = new URL("https://some.com/questions/111/some-question");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
         Assert.assertNull(response.response());

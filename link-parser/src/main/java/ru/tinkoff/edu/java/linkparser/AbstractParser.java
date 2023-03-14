@@ -35,6 +35,9 @@ public abstract non-sealed class AbstractParser implements Parser {
         return next.parseChain(url);
     }
 
+    /**
+     * @return 'null' if url has unsupported host; 'ResponseContainer<>(null)' if uncorrected link, but supported host
+     */
     protected abstract ResponseContainer<ILinkDTO> parseInternal(URL url);
 
     protected List<String> getArrayFromURL(URL url) {
