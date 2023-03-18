@@ -11,7 +11,7 @@ import java.util.List;
 public class StackOverflowParser extends AbstractParser {
 
     private static final String LINK = "stackoverflow.com";
-    public static final String PATH = "questions";
+    private static final String PATH = "questions";
 
     @Override
     protected ResponseContainer<ILinkDTO> parseInternal(URL url) {
