@@ -1,2 +1,9 @@
 app:
-  test: "i will work in Tinkoff"
+  test: "i will work in Tinkoff(bot)"
+
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
