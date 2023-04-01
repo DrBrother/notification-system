@@ -1,5 +1,9 @@
 app:
   test: "i will work in Tinkoff(bot)"
+  scrapper:
+    url: "http://127.0.0.1:8081"
+  bot:
+    token:
 
 server:
   port: 8080
