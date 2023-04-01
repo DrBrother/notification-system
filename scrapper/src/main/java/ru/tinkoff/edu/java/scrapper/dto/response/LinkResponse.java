@@ -1,4 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.dto.response;
 
-public record LinkResponse(Integer id, String url) {
+import java.net.URL;
+
+public record LinkResponse(Long id, URL link) {
 }

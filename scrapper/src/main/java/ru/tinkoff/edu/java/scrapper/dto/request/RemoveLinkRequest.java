@@ -2,5 +2,7 @@ package ru.tinkoff.edu.java.scrapper.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 
-public record RemoveLinkRequest(@NotNull String link) {
+import java.net.URL;
+
+public record RemoveLinkRequest(@NotNull URL link) {
 }
