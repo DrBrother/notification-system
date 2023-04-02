@@ -14,7 +14,7 @@
         <module>scrapper</module>
     </modules>
 
-    <name>link-tracker</name>
+    <name>notification-system</name>
 
 
     <properties>
@@ -26,6 +26,7 @@
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <jetbrains.annotations.version>23.1.0</jetbrains.annotations.version>
         <junit.version>4.11</junit.version>
+        <openapi.version>2.0.2</openapi.version>
     </properties>
 
     <dependencyManagement>
@@ -79,6 +80,12 @@
                 <optional>true</optional>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${openapi.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
