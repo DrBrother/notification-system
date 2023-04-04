@@ -21,8 +21,9 @@ public class ProcessorTest {
     private static final Long CHAT_ID = 1L;
 
     private final ScrapperClient client = Mockito.mock(ScrapperClientImpl.class);
-    private final UserMessageProcessor processor = new UserMessageProcessorImpl(List.of(new HelpCommand(),
-            new ListCommand(client), new StartCommand(client), new TrackCommand(client), new UntrackCommand(client)));
+
+    private final UserMessageProcessor processor = new UserMessageProcessorImpl(List.of(new ListCommand(client),
+            new StartCommand(client), new TrackCommand(client), new UntrackCommand(client)));
 
     @Test
     void processUnknownCommand() {
@@ -40,7 +41,7 @@ public class ProcessorTest {
     void processKnownCommand() {
         SendMessage notExpected = new SendMessage(CHAT_ID, "Неизвестная команда");
 
-        Update update = createUpdateWithText("/help");
+        Update update = createUpdateWithText("/start");
 
         SendMessage result = processor.process(update);
 
