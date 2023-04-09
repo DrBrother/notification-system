@@ -27,8 +27,8 @@ public class LinkController {
             @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}),
             @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))})})
     @GetMapping(value = "/links", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getLinks(@RequestHeader(name = "Tg-Chat-Id", required = true) Integer id) {
-        return new ResponseEntity<>(new ListLinksResponse(null, null), HttpStatus.OK);
+    public ResponseEntity<?> getLinks(@RequestHeader(name = "Tg-Chat-Id", required = true) Long id) {
+        return new ResponseEntity<>(new ListLinksResponse(new LinkResponse[]{}, 0), HttpStatus.OK);
     }
 
     @Operation(summary = "Добавить отслеживание ссылки")
@@ -37,9 +37,9 @@ public class LinkController {
             @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}),
             @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))})})
     @PostMapping(value = "/links", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addLink(@RequestHeader(name = "Tg-Chat-Id", required = true) Integer id,
+    public ResponseEntity<?> addLink(@RequestHeader(name = "Tg-Chat-Id", required = true) Long id,
                                      @Valid @RequestBody AddLinkRequest request) {
-        return new ResponseEntity<>(new LinkResponse(null, null), HttpStatus.OK);
+        return new ResponseEntity<>(new LinkResponse(null, request.link()), HttpStatus.OK);
     }
 
     @Operation(summary = "Убрать отслеживание ссылки")
@@ -49,9 +49,9 @@ public class LinkController {
             @ApiResponse(responseCode = "404", description = "Ссылка не найдена", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}),
             @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))})})
     @DeleteMapping(value = "/links", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> deleteLink(@RequestHeader(name = "Tg-Chat-Id", required = true) Integer id,
+    public ResponseEntity<?> deleteLink(@RequestHeader(name = "Tg-Chat-Id", required = true) Long id,
                                         @Valid @RequestBody RemoveLinkRequest request) {
-        return new ResponseEntity<>(new LinkResponse(null, null), HttpStatus.OK);
+        return new ResponseEntity<>(new LinkResponse(null, request.link()), HttpStatus.OK);
     }
 
 }

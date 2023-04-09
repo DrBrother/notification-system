@@ -25,7 +25,7 @@ public class ChatController {
             @ApiResponse(responseCode = "400", description = "Некорректные параметры запроса", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}),
             @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))})})
     @PostMapping(value = "/tg-chat/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> registerChat(@PathVariable(required = true) Integer id) {
+    public ResponseEntity<?> registerChat(@PathVariable(required = true) Long id) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -36,7 +36,7 @@ public class ChatController {
             @ApiResponse(responseCode = "404", description = "Чат не существует", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))}),
             @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = {@Content(schema = @Schema(implementation = ApiErrorResponse.class))})})
     @DeleteMapping(value = "/tg-chat/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> deleteChat(@PathVariable(required = true) Integer id) {
+    public ResponseEntity<?> deleteChat(@PathVariable(required = true) Long id) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -1,12 +1,12 @@
 package ru.tinkoff.edu.java.linkparser;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class AppTest {
     @Test
     public void testApp() {
-        Assert.assertTrue(true);
+        Assertions.assertTrue(true);
     }
 
 }

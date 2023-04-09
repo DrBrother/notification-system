@@ -1,7 +1,7 @@
 package ru.tinkoff.edu.java.linkparser;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import ru.tinkoff.edu.java.linkparser.dto.GitHubDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
@@ -20,49 +20,49 @@ public class LinkParserTest {
     public void testGitHub() throws MalformedURLException {
         URL url = new URL("https://github.com/user/repos");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assert.assertEquals(new GitHubDTO("user", "repos"), response.response());
+        Assertions.assertEquals(new GitHubDTO("user", "repos"), response.response());
     }
 
     @Test
     public void testGitHubInvalidPath() throws MalformedURLException {
         URL url = new URL("https://github.com/user");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assert.assertNull(response.response());
+        Assertions.assertNull(response.response());
     }
 
     @Test
     public void testStackOverflow() throws MalformedURLException {
         URL url = new URL("https://stackoverflow.com/questions/111/some-question");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assert.assertEquals(new StackOverflowDTO(111), response.response());
+        Assertions.assertEquals(new StackOverflowDTO(111), response.response());
     }
 
     @Test
     public void testStackOverflowEmptyPath() throws MalformedURLException {
         URL url = new URL("https://stackoverflow.com");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assert.assertNull(response.response());
+        Assertions.assertNull(response.response());
     }
 
     @Test
     public void testStackOverflowInvalidPath() throws MalformedURLException {
         URL url = new URL("https://stackoverflow.com/questions");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assert.assertNull(response.response());
+        Assertions.assertNull(response.response());
     }
 
     @Test
     public void testStackOverflowInvalidPathWithStringId() throws MalformedURLException {
         URL url = new URL("https://stackoverflow.com/questions/aaa");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assert.assertNull(response.response());
+        Assertions.assertNull(response.response());
     }
 
     @Test
     public void testUnsupportedHost() throws MalformedURLException {
         URL url = new URL("https://some.com/questions/111/some-question");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assert.assertNull(response.response());
+        Assertions.assertNull(response.response());
     }
 
 }

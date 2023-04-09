@@ -7,7 +7,7 @@
     <groupId>ru.tinkoff</groupId>
     <artifactId>notification-system</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <modules>
         <module>bot</module>
         <module>link-parser</module>
@@ -18,6 +18,7 @@
 
 
     <properties>
+        <revision>1.0-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -25,8 +26,10 @@
         <spring-boot.version>3.0.1</spring-boot.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <jetbrains.annotations.version>23.1.0</jetbrains.annotations.version>
-        <junit.version>4.11</junit.version>
+        <spring-boot-starter-test.version>3.0.5</spring-boot-starter-test.version>
         <openapi.version>2.0.2</openapi.version>
+        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0</maven-failsafe-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -85,7 +88,6 @@
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${openapi.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -97,9 +99,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-starter-test.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -140,6 +142,16 @@
                         <release>17</release>
                         <parameters>true</parameters>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
