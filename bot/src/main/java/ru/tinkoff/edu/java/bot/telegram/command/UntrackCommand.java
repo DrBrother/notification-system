@@ -36,21 +36,25 @@ public class UntrackCommand implements Command {
 
         if (link != null) {
             try {
-                RemoveLinkRequest removeLinkRequest = new RemoveLinkRequest(new URL(link));
-                LinkResponse response;
-                try {
-                    response = client.deleteLink(chatId, removeLinkRequest).block();
-                } catch (Exception e) {
-//                  пока что ловлю Exception, потому что в контроллерах заглушки
-                    return new SendMessage(chatId, e.getMessage());
-                }
-                return new SendMessage(chatId, "Ссылка удалена: " + response.link());
+                return getSendMessage(chatId, link);
             } catch (MalformedURLException e) {
                 return new SendMessage(chatId, "Ссылка не соответствует формату URL");
             }
         } else {
             return new SendMessage(chatId, "Ссылка не указана");
         }
+    }
+
+    private SendMessage getSendMessage(Long chatId, String link) throws MalformedURLException {
+        RemoveLinkRequest removeLinkRequest = new RemoveLinkRequest(new URL(link));
+        LinkResponse response;
+        try {
+            response = client.deleteLink(chatId, removeLinkRequest).block();
+        } catch (Exception e) {
+            // пока что ловлю Exception, потому что в контроллерах заглушки
+            return new SendMessage(chatId, e.getMessage().split(": ")[1]);
+        }
+        return new SendMessage(chatId, "Ссылка удалена: " + response.link());
     }
 
     private String getLink(Update update) {
