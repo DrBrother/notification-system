@@ -1,5 +1,6 @@
 app:
   test: "i will work in Tinkoff(scrapper)"
+  linkCheckPeriodMinutes: 20
   clients:
     stackoverflow: "https://api.stackexchange.com/2.3"
     github: "https://api.github.com"

@@ -8,6 +8,8 @@ import ru.tinkoff.edu.java.linkparser.dto.GitHubDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 import ru.tinkoff.edu.java.linkparser.dto.StackOverflowDTO;
+import ru.tinkoff.edu.java.scrapper.configuration.ApplicationConfig;
+import ru.tinkoff.edu.java.scrapper.configuration.ApplicationProperties;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.service.linkService.GitHubService;
@@ -24,11 +26,12 @@ public class LinkUpdaterServiceImpl implements LinkUpdaterService {
     private final Parser linkParser;
     private final GitHubService gitHubService;
     private final StackOverflowService stackOverflowService;
+    private final ApplicationProperties properties;
 
     @Transactional
     @Override
     public int update() {
-        List<Link> links = linkDao.findOlderThan(OffsetDateTime.now().minusMinutes(30));
+        List<Link> links = linkDao.findOlderThan(OffsetDateTime.now().minusMinutes(properties.linkCheckPeriodMinutes()));
         ResponseContainer<ILinkDTO> response;
         for (Link link : links) {
             response = linkParser.parseChain(link.getUrl());

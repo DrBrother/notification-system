@@ -11,10 +11,16 @@ import java.util.Objects;
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
 public record ApplicationProperties(@NotNull String test,
                                     @NotNull Clients clients,
-                                    @NotNull Scheduler scheduler) {
+                                    @NotNull Scheduler scheduler,
+                                    Integer linkCheckPeriodMinutes) {
 
     private static final String STACKOVERFLOW = "https://api.stackexchange.com/2.3";
     private static final String GITHUB = "https://api.github.com";
+
+    @Override
+    public Integer linkCheckPeriodMinutes() {
+        return Objects.requireNonNullElse(linkCheckPeriodMinutes, 30);
+    }
 
     public record Clients(String stackoverflow, String github, @NotNull String bot) {
         @Override
