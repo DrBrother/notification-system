@@ -17,6 +17,6 @@ springdoc:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/scrapper
-    username: scrapper
-    password: scrapper
+    username:
+    password:
     driverClassName: org.postgresql.Driver
