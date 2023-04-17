@@ -34,7 +34,7 @@ public class ListCommand implements Command {
             response = client.getLinks(chatId).block();
         } catch (Exception e) {
 //          пока что ловлю Exception, потому что в контроллерах заглушки
-            return new SendMessage(chatId, e.getMessage());
+            return new SendMessage(chatId, e.getMessage().split(": ")[1]);
         }
 
         if (response != null && response.size() > 0) {

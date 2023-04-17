@@ -7,10 +7,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.tinkoff.edu.java.common.exception.ChatNotFoundException;
+import ru.tinkoff.edu.java.common.exception.LinkNotFoundException;
+import ru.tinkoff.edu.java.common.exception.SubscriptionNotFountException;
+import ru.tinkoff.edu.java.common.exception.constants.ScrapperExceptionConstants;
 import ru.tinkoff.edu.java.scrapper.dto.response.ApiErrorResponse;
-import ru.tinkoff.edu.java.scrapper.exception.ChatNotFoundException;
-import ru.tinkoff.edu.java.scrapper.exception.LinkNotFoundException;
-import ru.tinkoff.edu.java.scrapper.exception.ScrapperExceptionConstants;
 
 @RestControllerAdvice
 public class ScrapperExceptionHandler {
@@ -36,6 +37,12 @@ public class ScrapperExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleUncheckedException(Exception e) {
         ApiErrorResponse apiErrorResponse = createApiErrorResponse(e, ScrapperExceptionConstants.SERVER_ERROR);
+        return new ResponseEntity<>(apiErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(SubscriptionNotFountException.class)
+    public ResponseEntity<ApiErrorResponse> handleSubscriptionNotFountException(SubscriptionNotFountException e) {
+        ApiErrorResponse apiErrorResponse = createApiErrorResponse(e, ScrapperExceptionConstants.SUBSCRIPTION_NOT_FOUND);
         return new ResponseEntity<>(apiErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

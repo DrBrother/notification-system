@@ -1,4 +1,4 @@
-package ru.tinkoff.edu.java.bot.controllerAdvice;
+package ru.tinkoff.edu.java.common.exception.constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -32,7 +32,7 @@ public class StartCommand implements Command {
             client.registerChat(chatId).block();
         } catch (Exception e) {
 //          пока что ловлю Exception, потому что в контроллерах заглушки
-            return new SendMessage(chatId, e.getMessage());
+            return new SendMessage(chatId, e.getMessage().split(": ")[1]);
         }
         return new SendMessage(chatId, "Чат зарегистрирован");
     }
