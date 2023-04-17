@@ -28,7 +28,7 @@ public class LinkUpdaterServiceImpl implements LinkUpdaterService {
     @Transactional
     @Override
     public int update() {
-        List<Link> links = linkDao.findOlderThan(OffsetDateTime.now().minusMinutes(10));
+        List<Link> links = linkDao.findOlderThan(OffsetDateTime.now().minusMinutes(30));
         ResponseContainer<ILinkDTO> response;
         for (Link link : links) {
             response = linkParser.parseChain(link.getUrl());

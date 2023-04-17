@@ -16,7 +16,9 @@ import ru.tinkoff.edu.java.scrapper.dto.response.GitHubResponse;
 import ru.tinkoff.edu.java.scrapper.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 
+import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.TimeZone;
 
 @AllArgsConstructor
 @Service
@@ -36,9 +38,10 @@ public class GitHubServiceImpl implements GitHubService {
         String repoName = ((GitHubDTO) response.response()).repositoryName();
         String username = ((GitHubDTO) response.response()).userName();
         GitHubResponse gitHubResponse = gitHubClient.fetchRepository(username, repoName).block();
-        if (link.getUpdateTime().isBefore(gitHubResponse.updatedTime())) {
+        OffsetDateTime localTime = getTimeWithTimeZone(gitHubResponse.updatedTime());
+        if (link.getUpdateTime().isBefore(localTime)) {
             List<Chat> ids = chatDao.findAllByLink(link.getId());
-            link.setUpdateTime(gitHubResponse.updatedTime());
+            link.setUpdateTime(localTime);
             linkDao.update(link);
 
             String updateDescription = generateUpdateDescription(username, repoName, link);
@@ -135,6 +138,10 @@ public class GitHubServiceImpl implements GitHubService {
             }
         }
         return stringBuilder.toString();
+    }
+
+    private OffsetDateTime getTimeWithTimeZone(OffsetDateTime time) {
+        return time.plusNanos(TimeZone.getDefault().getRawOffset() * 1_000_000L);
     }
 
 }
