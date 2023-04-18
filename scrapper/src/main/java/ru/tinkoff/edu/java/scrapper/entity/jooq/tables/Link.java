@@ -30,8 +30,8 @@ import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
-import ru.tinkoff.edu.java.scrapper.entity.jooq.DefaultSchema;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.Keys;
+import ru.tinkoff.edu.java.scrapper.entity.jooq.Public;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.LinkRecord;
 
 
@@ -51,7 +51,7 @@ public class Link extends TableImpl<LinkRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>LINK</code>
+     * The reference instance of <code>public.link</code>
      */
     public static final Link LINK = new Link();
 
@@ -65,24 +65,24 @@ public class Link extends TableImpl<LinkRecord> {
     }
 
     /**
-     * The column <code>LINK.ID</code>.
+     * The column <code>public.link.id</code>.
      */
-    public final TableField<LinkRecord, Long> ID = createField(DSL.name("ID").unquotedName(), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<LinkRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>LINK.URL</code>.
+     * The column <code>public.link.url</code>.
      */
-    public final TableField<LinkRecord, String> URL = createField(DSL.name("URL").unquotedName(), SQLDataType.VARCHAR(1000000000).nullable(false), this, "");
+    public final TableField<LinkRecord, String> URL = createField(DSL.name("url"), SQLDataType.CLOB.nullable(false), this, "");
 
     /**
-     * The column <code>LINK.UPDATETIME</code>.
+     * The column <code>public.link.updatetime</code>.
      */
-    public final TableField<LinkRecord, LocalDateTime> UPDATETIME = createField(DSL.name("UPDATETIME").unquotedName(), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("LOCALTIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<LinkRecord, LocalDateTime> UPDATETIME = createField(DSL.name("updatetime"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>LINK.CHECKTIME</code>.
+     * The column <code>public.link.checktime</code>.
      */
-    public final TableField<LinkRecord, LocalDateTime> CHECKTIME = createField(DSL.name("CHECKTIME").unquotedName(), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("LOCALTIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<LinkRecord, LocalDateTime> CHECKTIME = createField(DSL.name("checktime"), SQLDataType.LOCALDATETIME(6).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
 
     private Link(Name alias, Table<LinkRecord> aliased) {
         this(alias, aliased, null);
@@ -93,24 +93,24 @@ public class Link extends TableImpl<LinkRecord> {
     }
 
     /**
-     * Create an aliased <code>LINK</code> table reference
+     * Create an aliased <code>public.link</code> table reference
      */
     public Link(String alias) {
         this(DSL.name(alias), LINK);
     }
 
     /**
-     * Create an aliased <code>LINK</code> table reference
+     * Create an aliased <code>public.link</code> table reference
      */
     public Link(Name alias) {
         this(alias, LINK);
     }
 
     /**
-     * Create a <code>LINK</code> table reference
+     * Create a <code>public.link</code> table reference
      */
     public Link() {
-        this(DSL.name("LINK").unquotedName(), null);
+        this(DSL.name("link"), null);
     }
 
     public <O extends Record> Link(Table<O> child, ForeignKey<O, LinkRecord> key) {
@@ -120,7 +120,7 @@ public class Link extends TableImpl<LinkRecord> {
     @Override
     @NotNull
     public Schema getSchema() {
-        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -132,13 +132,13 @@ public class Link extends TableImpl<LinkRecord> {
     @Override
     @NotNull
     public UniqueKey<LinkRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_2;
+        return Keys.LINK_PKEY;
     }
 
     @Override
     @NotNull
     public List<UniqueKey<LinkRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.CONSTRAINT_23);
+        return Arrays.asList(Keys.LINK_URL_KEY);
     }
 
     @Override

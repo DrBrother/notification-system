@@ -28,8 +28,8 @@ import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
-import ru.tinkoff.edu.java.scrapper.entity.jooq.DefaultSchema;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.Keys;
+import ru.tinkoff.edu.java.scrapper.entity.jooq.Public;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.SubscriptionRecord;
 
 
@@ -49,7 +49,7 @@ public class Subscription extends TableImpl<SubscriptionRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>SUBSCRIPTION</code>
+     * The reference instance of <code>public.subscription</code>
      */
     public static final Subscription SUBSCRIPTION = new Subscription();
 
@@ -63,14 +63,14 @@ public class Subscription extends TableImpl<SubscriptionRecord> {
     }
 
     /**
-     * The column <code>SUBSCRIPTION.CHAT_ID</code>.
+     * The column <code>public.subscription.chat_id</code>.
      */
-    public final TableField<SubscriptionRecord, Long> CHAT_ID = createField(DSL.name("CHAT_ID").unquotedName(), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<SubscriptionRecord, Long> CHAT_ID = createField(DSL.name("chat_id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>SUBSCRIPTION.LINK_ID</code>.
+     * The column <code>public.subscription.link_id</code>.
      */
-    public final TableField<SubscriptionRecord, Long> LINK_ID = createField(DSL.name("LINK_ID").unquotedName(), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<SubscriptionRecord, Long> LINK_ID = createField(DSL.name("link_id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     private Subscription(Name alias, Table<SubscriptionRecord> aliased) {
         this(alias, aliased, null);
@@ -81,24 +81,24 @@ public class Subscription extends TableImpl<SubscriptionRecord> {
     }
 
     /**
-     * Create an aliased <code>SUBSCRIPTION</code> table reference
+     * Create an aliased <code>public.subscription</code> table reference
      */
     public Subscription(String alias) {
         this(DSL.name(alias), SUBSCRIPTION);
     }
 
     /**
-     * Create an aliased <code>SUBSCRIPTION</code> table reference
+     * Create an aliased <code>public.subscription</code> table reference
      */
     public Subscription(Name alias) {
         this(alias, SUBSCRIPTION);
     }
 
     /**
-     * Create a <code>SUBSCRIPTION</code> table reference
+     * Create a <code>public.subscription</code> table reference
      */
     public Subscription() {
-        this(DSL.name("SUBSCRIPTION").unquotedName(), null);
+        this(DSL.name("subscription"), null);
     }
 
     public <O extends Record> Subscription(Table<O> child, ForeignKey<O, SubscriptionRecord> key) {
@@ -108,40 +108,40 @@ public class Subscription extends TableImpl<SubscriptionRecord> {
     @Override
     @NotNull
     public Schema getSchema() {
-        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     @NotNull
     public UniqueKey<SubscriptionRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_9E7;
+        return Keys.SUBSCRIPTION_PKEY;
     }
 
     @Override
     @NotNull
     public List<ForeignKey<SubscriptionRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.CONSTRAINT_9, Keys.CONSTRAINT_9E);
+        return Arrays.asList(Keys.SUBSCRIPTION__SUBSCRIPTION_CHAT_ID_FKEY, Keys.SUBSCRIPTION__SUBSCRIPTION_LINK_ID_FKEY);
     }
 
     private transient Chat _chat;
     private transient Link _link;
 
     /**
-     * Get the implicit join path to the <code>PUBLIC.CHAT</code> table.
+     * Get the implicit join path to the <code>public.chat</code> table.
      */
     public Chat chat() {
         if (_chat == null)
-            _chat = new Chat(this, Keys.CONSTRAINT_9);
+            _chat = new Chat(this, Keys.SUBSCRIPTION__SUBSCRIPTION_CHAT_ID_FKEY);
 
         return _chat;
     }
 
     /**
-     * Get the implicit join path to the <code>PUBLIC.LINK</code> table.
+     * Get the implicit join path to the <code>public.link</code> table.
      */
     public Link link() {
         if (_link == null)
-            _link = new Link(this, Keys.CONSTRAINT_9E);
+            _link = new Link(this, Keys.SUBSCRIPTION__SUBSCRIPTION_LINK_ID_FKEY);
 
         return _link;
     }

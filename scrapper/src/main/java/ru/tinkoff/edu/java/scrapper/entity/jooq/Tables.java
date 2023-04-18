@@ -7,12 +7,14 @@ package ru.tinkoff.edu.java.scrapper.entity.jooq;
 import javax.annotation.processing.Generated;
 
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Chat;
+import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Databasechangelog;
+import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Databasechangeloglock;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Link;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Subscription;
 
 
 /**
- * Convenience access to all tables in the default schema.
+ * Convenience access to all tables in public.
  */
 @Generated(
     value = {
@@ -25,17 +27,27 @@ import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Subscription;
 public class Tables {
 
     /**
-     * The table <code>CHAT</code>.
+     * The table <code>public.chat</code>.
      */
     public static final Chat CHAT = Chat.CHAT;
 
     /**
-     * The table <code>LINK</code>.
+     * The table <code>public.databasechangelog</code>.
+     */
+    public static final Databasechangelog DATABASECHANGELOG = Databasechangelog.DATABASECHANGELOG;
+
+    /**
+     * The table <code>public.databasechangeloglock</code>.
+     */
+    public static final Databasechangeloglock DATABASECHANGELOGLOCK = Databasechangeloglock.DATABASECHANGELOGLOCK;
+
+    /**
+     * The table <code>public.link</code>.
      */
     public static final Link LINK = Link.LINK;
 
     /**
-     * The table <code>SUBSCRIPTION</code>.
+     * The table <code>public.subscription</code>.
      */
     public static final Subscription SUBSCRIPTION = Subscription.SUBSCRIPTION;
 }

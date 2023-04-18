@@ -26,8 +26,8 @@ import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
-import ru.tinkoff.edu.java.scrapper.entity.jooq.DefaultSchema;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.Keys;
+import ru.tinkoff.edu.java.scrapper.entity.jooq.Public;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.ChatRecord;
 
 
@@ -47,7 +47,7 @@ public class Chat extends TableImpl<ChatRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>CHAT</code>
+     * The reference instance of <code>public.chat</code>
      */
     public static final Chat CHAT = new Chat();
 
@@ -61,9 +61,9 @@ public class Chat extends TableImpl<ChatRecord> {
     }
 
     /**
-     * The column <code>CHAT.ID</code>.
+     * The column <code>public.chat.id</code>.
      */
-    public final TableField<ChatRecord, Long> ID = createField(DSL.name("ID").unquotedName(), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ChatRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     private Chat(Name alias, Table<ChatRecord> aliased) {
         this(alias, aliased, null);
@@ -74,24 +74,24 @@ public class Chat extends TableImpl<ChatRecord> {
     }
 
     /**
-     * Create an aliased <code>CHAT</code> table reference
+     * Create an aliased <code>public.chat</code> table reference
      */
     public Chat(String alias) {
         this(DSL.name(alias), CHAT);
     }
 
     /**
-     * Create an aliased <code>CHAT</code> table reference
+     * Create an aliased <code>public.chat</code> table reference
      */
     public Chat(Name alias) {
         this(alias, CHAT);
     }
 
     /**
-     * Create a <code>CHAT</code> table reference
+     * Create a <code>public.chat</code> table reference
      */
     public Chat() {
-        this(DSL.name("CHAT").unquotedName(), null);
+        this(DSL.name("chat"), null);
     }
 
     public <O extends Record> Chat(Table<O> child, ForeignKey<O, ChatRecord> key) {
@@ -101,13 +101,13 @@ public class Chat extends TableImpl<ChatRecord> {
     @Override
     @NotNull
     public Schema getSchema() {
-        return aliased() ? null : DefaultSchema.DEFAULT_SCHEMA;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     @NotNull
     public UniqueKey<ChatRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_1;
+        return Keys.CHAT_PKEY;
     }
 
     @Override

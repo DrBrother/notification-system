@@ -33,14 +33,14 @@ public class SubscriptionRecord extends UpdatableRecordImpl<SubscriptionRecord> 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>SUBSCRIPTION.CHAT_ID</code>.
+     * Setter for <code>public.subscription.chat_id</code>.
      */
     public void setChatId(@NotNull Long value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>SUBSCRIPTION.CHAT_ID</code>.
+     * Getter for <code>public.subscription.chat_id</code>.
      */
     @jakarta.validation.constraints.NotNull
     @NotNull
@@ -49,14 +49,14 @@ public class SubscriptionRecord extends UpdatableRecordImpl<SubscriptionRecord> 
     }
 
     /**
-     * Setter for <code>SUBSCRIPTION.LINK_ID</code>.
+     * Setter for <code>public.subscription.link_id</code>.
      */
     public void setLinkId(@NotNull Long value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>SUBSCRIPTION.LINK_ID</code>.
+     * Getter for <code>public.subscription.link_id</code>.
      */
     @jakarta.validation.constraints.NotNull
     @NotNull

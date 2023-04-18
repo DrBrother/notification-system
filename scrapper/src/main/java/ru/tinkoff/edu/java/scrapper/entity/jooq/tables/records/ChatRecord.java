@@ -33,14 +33,14 @@ public class ChatRecord extends UpdatableRecordImpl<ChatRecord> implements Recor
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>CHAT.ID</code>.
+     * Setter for <code>public.chat.id</code>.
      */
     public void setId(@NotNull Long value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>CHAT.ID</code>.
+     * Getter for <code>public.chat.id</code>.
      */
     @jakarta.validation.constraints.NotNull
     @NotNull

@@ -4,8 +4,6 @@
 package ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records;
 
 
-import jakarta.validation.constraints.Size;
-
 import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 
@@ -38,14 +36,14 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>LINK.ID</code>.
+     * Setter for <code>public.link.id</code>.
      */
     public void setId(@NotNull Long value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>LINK.ID</code>.
+     * Getter for <code>public.link.id</code>.
      */
     @NotNull
     public Long getId() {
@@ -53,31 +51,30 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
     }
 
     /**
-     * Setter for <code>LINK.URL</code>.
+     * Setter for <code>public.link.url</code>.
      */
     public void setUrl(@NotNull String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>LINK.URL</code>.
+     * Getter for <code>public.link.url</code>.
      */
     @jakarta.validation.constraints.NotNull
-    @Size(max = 1000000000)
     @NotNull
     public String getUrl() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>LINK.UPDATETIME</code>.
+     * Setter for <code>public.link.updatetime</code>.
      */
     public void setUpdatetime(@Nullable LocalDateTime value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>LINK.UPDATETIME</code>.
+     * Getter for <code>public.link.updatetime</code>.
      */
     @Nullable
     public LocalDateTime getUpdatetime() {
@@ -85,14 +82,14 @@ public class LinkRecord extends UpdatableRecordImpl<LinkRecord> implements Recor
     }
 
     /**
-     * Setter for <code>LINK.CHECKTIME</code>.
+     * Setter for <code>public.link.checktime</code>.
      */
     public void setChecktime(@Nullable LocalDateTime value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>LINK.CHECKTIME</code>.
+     * Getter for <code>public.link.checktime</code>.
      */
     @Nullable
     public LocalDateTime getChecktime() {
