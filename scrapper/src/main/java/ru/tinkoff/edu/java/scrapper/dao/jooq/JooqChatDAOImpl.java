@@ -2,7 +2,7 @@ package ru.tinkoff.edu.java.scrapper.dao.jooq;
 
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
+import org.jooq.Record1;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.ChatDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.ChatRecord;
@@ -43,10 +43,12 @@ public class JooqChatDAOImpl implements ChatDAO {
                 .join(SUBSCRIPTION).on(CHAT.ID.eq(SUBSCRIPTION.CHAT_ID))
                 .where(SUBSCRIPTION.LINK_ID.eq(linkId))
                 .fetch()
-                .map(record -> {
-                    ChatRecord chatRecord = (ChatRecord) record.getValue(0);
-                    return new ru.tinkoff.edu.java.scrapper.entity.Chat(chatRecord.getValue(CHAT.ID));
-                });
+                .map(this::convert);
+    }
+
+    private ru.tinkoff.edu.java.scrapper.entity.Chat convert(Record1 record1) {
+        ChatRecord chatRecord = (ChatRecord) record1.getValue(0);
+        return new ru.tinkoff.edu.java.scrapper.entity.Chat(chatRecord.getValue(CHAT.ID));
     }
 
 }

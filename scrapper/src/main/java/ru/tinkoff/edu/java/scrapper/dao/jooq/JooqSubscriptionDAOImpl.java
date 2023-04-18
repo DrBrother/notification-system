@@ -2,7 +2,7 @@ package ru.tinkoff.edu.java.scrapper.dao.jooq;
 
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
+import org.jooq.Record1;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.SubscriptionDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.SubscriptionRecord;
@@ -39,11 +39,13 @@ public class JooqSubscriptionDAOImpl implements SubscriptionDAO {
                 .from(SUBSCRIPTION)
                 .where(SUBSCRIPTION.CHAT_ID.eq(chatId), SUBSCRIPTION.LINK_ID.eq(linkId))
                 .fetch()
-                .map(record -> {
-                    SubscriptionRecord subscriptionRecord = (SubscriptionRecord) record.getValue(0);
-                    return new ru.tinkoff.edu.java.scrapper.entity.Subscription(subscriptionRecord.getValue(SUBSCRIPTION.CHAT_ID),
-                            subscriptionRecord.getValue(SUBSCRIPTION.LINK_ID));
-                }).stream().findFirst().orElse(null);
+                .map(this::convert).stream().findFirst().orElse(null);
+    }
+
+    private ru.tinkoff.edu.java.scrapper.entity.Subscription convert(Record1 record1) {
+        SubscriptionRecord subscriptionRecord = (SubscriptionRecord) record1.getValue(0);
+        return new ru.tinkoff.edu.java.scrapper.entity.Subscription(subscriptionRecord.getValue(SUBSCRIPTION.CHAT_ID),
+                subscriptionRecord.getValue(SUBSCRIPTION.LINK_ID));
     }
 
 }

@@ -2,7 +2,8 @@ package ru.tinkoff.edu.java.scrapper.dao.jooq;
 
 import lombok.AllArgsConstructor;
 import org.jooq.DSLContext;
-import org.springframework.stereotype.Repository;
+import org.jooq.Record;
+import org.jooq.Record1;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.LinkRecord;
@@ -27,18 +28,10 @@ public class JooqLinkDAOImpl implements LinkDAO {
     public ru.tinkoff.edu.java.scrapper.entity.Link add(URL link) {
         return dslContext.insertInto(LINK, LINK.URL)
                 .values(link.toString())
+                .onConflictDoNothing()
                 .returningResult(LINK.ID, LINK.URL, LINK.CHECKTIME, LINK.UPDATETIME)
                 .fetchOne()
-                .map(record -> {
-                    try {
-                        return new ru.tinkoff.edu.java.scrapper.entity.Link(
-                                record.getValue(LINK.ID), new URL(record.getValue(LINK.URL)),
-                                OffsetDateTime.of(record.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
-                                OffsetDateTime.of(record.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                .map(this::convert);
     }
 
     @Transactional
@@ -58,17 +51,7 @@ public class JooqLinkDAOImpl implements LinkDAO {
                 .from(LINK)
                 .where(LINK.URL.eq(link.toString()))
                 .fetch()
-                .map(record -> {
-                    try {
-                        LinkRecord linkRecord = (LinkRecord) record.get(0);
-                        return new ru.tinkoff.edu.java.scrapper.entity.Link(
-                                linkRecord.getValue(LINK.ID), new URL(linkRecord.getValue(LINK.URL)),
-                                OffsetDateTime.of(linkRecord.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
-                                OffsetDateTime.of(linkRecord.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }).stream().findFirst().orElse(null);
+                .map(this::convert).stream().findFirst().orElse(null);
     }
 
     @Transactional
@@ -79,17 +62,7 @@ public class JooqLinkDAOImpl implements LinkDAO {
                 .join(SUBSCRIPTION).on(LINK.ID.eq(SUBSCRIPTION.LINK_ID))
                 .where(SUBSCRIPTION.CHAT_ID.eq(chatId))
                 .fetch()
-                .map(record -> {
-                    try {
-                        LinkRecord linkRecord = (LinkRecord) record.get(0);
-                        return new ru.tinkoff.edu.java.scrapper.entity.Link(
-                                linkRecord.getValue(LINK.ID), new URL(linkRecord.getValue(LINK.URL)),
-                                OffsetDateTime.of(linkRecord.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
-                                OffsetDateTime.of(linkRecord.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                .map(this::convert);
     }
 
     @Transactional
@@ -99,17 +72,31 @@ public class JooqLinkDAOImpl implements LinkDAO {
                 .from(LINK)
                 .where(LINK.CHECKTIME.lessOrEqual(checkTime.toLocalDateTime()))
                 .fetch()
-                .map(record -> {
-                    try {
-                        LinkRecord linkRecord = (LinkRecord) record.get(0);
-                        return new ru.tinkoff.edu.java.scrapper.entity.Link(
-                                linkRecord.getValue(LINK.ID), new URL(linkRecord.getValue(LINK.URL)),
-                                OffsetDateTime.of(linkRecord.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
-                                OffsetDateTime.of(linkRecord.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
-                    } catch (MalformedURLException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                .map(this::convert);
+    }
+
+
+    private ru.tinkoff.edu.java.scrapper.entity.Link convert(Record1 record1) {
+        LinkRecord linkRecord = (LinkRecord) record1.get(0);
+        try {
+            return new ru.tinkoff.edu.java.scrapper.entity.Link(
+                    linkRecord.getValue(LINK.ID), new URL(linkRecord.getValue(LINK.URL)),
+                    OffsetDateTime.of(linkRecord.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
+                    OffsetDateTime.of(linkRecord.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ru.tinkoff.edu.java.scrapper.entity.Link convert(Record record) {
+        try {
+            return new ru.tinkoff.edu.java.scrapper.entity.Link(
+                    record.getValue(LINK.ID), new URL(record.getValue(LINK.URL)),
+                    OffsetDateTime.of(record.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
+                    OffsetDateTime.of(record.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
