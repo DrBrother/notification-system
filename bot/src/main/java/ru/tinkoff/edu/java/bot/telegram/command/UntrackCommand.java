@@ -52,7 +52,7 @@ public class UntrackCommand implements Command {
             response = client.deleteLink(chatId, removeLinkRequest).block();
         } catch (Exception e) {
             // пока что ловлю Exception, потому что в контроллерах заглушки
-            return new SendMessage(chatId, e.getMessage().split(": ")[1]);
+            return new SendMessage(chatId, e.getMessage());
         }
         return new SendMessage(chatId, "Ссылка удалена: " + response.link());
     }

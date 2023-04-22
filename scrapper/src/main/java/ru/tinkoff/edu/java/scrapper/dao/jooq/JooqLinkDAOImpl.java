@@ -1,9 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.dao.jooq;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Record1;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.LinkRecord;
@@ -17,8 +19,9 @@ import java.util.List;
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.Tables.LINK;
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Subscription.SUBSCRIPTION;
 
-@AllArgsConstructor
-//@Repository
+@RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "app", name = "databaseAccessType", havingValue = "jooq")
+@Repository
 public class JooqLinkDAOImpl implements LinkDAO {
 
     private final DSLContext dslContext;
@@ -31,13 +34,13 @@ public class JooqLinkDAOImpl implements LinkDAO {
                 .onConflictDoNothing()
                 .returningResult(LINK.ID, LINK.URL, LINK.CHECKTIME, LINK.UPDATETIME)
                 .fetchOne()
-                .map(this::convert);
+                .map(this::convertFromRecord);
     }
 
     @Transactional
     @Override
-    public int update(ru.tinkoff.edu.java.scrapper.entity.Link link) {
-        return dslContext.update(LINK)
+    public void update(ru.tinkoff.edu.java.scrapper.entity.Link link) {
+        dslContext.update(LINK)
                 .set(LINK.UPDATETIME, link.getUpdateTime().toLocalDateTime())
                 .set(LINK.CHECKTIME, OffsetDateTime.now().toLocalDateTime())
                 .where(LINK.ID.eq(link.getId()))
@@ -51,7 +54,7 @@ public class JooqLinkDAOImpl implements LinkDAO {
                 .from(LINK)
                 .where(LINK.URL.eq(link.toString()))
                 .fetch()
-                .map(this::convert).stream().findFirst().orElse(null);
+                .map(this::convertFromRecord1).stream().findFirst().orElse(null);
     }
 
     @Transactional
@@ -62,7 +65,7 @@ public class JooqLinkDAOImpl implements LinkDAO {
                 .join(SUBSCRIPTION).on(LINK.ID.eq(SUBSCRIPTION.LINK_ID))
                 .where(SUBSCRIPTION.CHAT_ID.eq(chatId))
                 .fetch()
-                .map(this::convert);
+                .map(this::convertFromRecord1);
     }
 
     @Transactional
@@ -72,11 +75,11 @@ public class JooqLinkDAOImpl implements LinkDAO {
                 .from(LINK)
                 .where(LINK.CHECKTIME.lessOrEqual(checkTime.toLocalDateTime()))
                 .fetch()
-                .map(this::convert);
+                .map(this::convertFromRecord1);
     }
 
 
-    private ru.tinkoff.edu.java.scrapper.entity.Link convert(Record1 record1) {
+    private ru.tinkoff.edu.java.scrapper.entity.Link convertFromRecord1(Record1 record1) {
         LinkRecord linkRecord = (LinkRecord) record1.get(0);
         try {
             return new ru.tinkoff.edu.java.scrapper.entity.Link(
@@ -88,7 +91,7 @@ public class JooqLinkDAOImpl implements LinkDAO {
         }
     }
 
-    private ru.tinkoff.edu.java.scrapper.entity.Link convert(Record record) {
+    private ru.tinkoff.edu.java.scrapper.entity.Link convertFromRecord(Record record) {
         try {
             return new ru.tinkoff.edu.java.scrapper.entity.Link(
                     record.getValue(LINK.ID), new URL(record.getValue(LINK.URL)),

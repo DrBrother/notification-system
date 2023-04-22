@@ -4,11 +4,11 @@ import ru.tinkoff.edu.java.scrapper.entity.Chat;
 
 import java.util.List;
 
-public interface ChatDAO {
+public interface ChatDAO  {
 
-    int add(long chatId);
+    void add(long chatId);
 
-    int remove(long chatId);
+    void remove(long chatId);
 
     List<Chat> findAllByLink(long linkId);
 
