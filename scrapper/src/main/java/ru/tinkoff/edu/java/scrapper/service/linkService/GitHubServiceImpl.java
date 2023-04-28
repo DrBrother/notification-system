@@ -6,7 +6,6 @@ import ru.tinkoff.edu.java.common.dto.LinkUpdate;
 import ru.tinkoff.edu.java.linkparser.dto.GitHubDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
-import ru.tinkoff.edu.java.scrapper.client.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.GithubClient;
 import ru.tinkoff.edu.java.scrapper.dao.ChatDAO;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
@@ -15,6 +14,7 @@ import ru.tinkoff.edu.java.scrapper.dto.response.GitHubEventType;
 import ru.tinkoff.edu.java.scrapper.dto.response.GitHubResponse;
 import ru.tinkoff.edu.java.scrapper.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
+import ru.tinkoff.edu.java.scrapper.service.MessageService;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -26,7 +26,7 @@ public class GitHubServiceImpl implements GitHubService {
 
     private final LinkDAO linkDao;
     private final ChatDAO chatDao;
-    private final BotClient botClient;
+    private final MessageService messageService;
     private final GithubClient gitHubClient;
 
     @Override
@@ -46,8 +46,8 @@ public class GitHubServiceImpl implements GitHubService {
 
             String updateDescription = generateUpdateDescription(username, repoName, link);
 
-            botClient.pullLinks(new LinkUpdate(link.getId(), link.getUrl().toString(), updateDescription,
-                    ids.stream().map(Chat::getId).toArray(Long[]::new))).block();
+            messageService.sendMessage(new LinkUpdate(link.getId(), link.getUrl().toString(), updateDescription,
+                    ids.stream().map(Chat::getId).toArray(Long[]::new)));
             return;
         }
         linkDao.update(link);

@@ -14,7 +14,10 @@ public record ApplicationProperties(@NotNull String test,
                                     @NotNull Clients clients,
                                     @NotNull Scheduler scheduler,
                                     Integer linkCheckPeriodMinutes,
-                                    @NotNull DatabaseAccessType databaseAccessType) {
+                                    @NotNull DatabaseAccessType databaseAccessType,
+                                    @NotNull String queueName,
+                                    @NotNull String exchangeName,
+                                    @NotNull boolean useQueue) {
 
     private static final String STACKOVERFLOW = "https://api.stackexchange.com/2.3";
     private static final String GITHUB = "https://api.github.com";

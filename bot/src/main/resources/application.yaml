@@ -4,6 +4,8 @@ app:
     url: "http://127.0.0.1:8081"
   bot:
     token:
+  queueName: scrapperQueue
+  exchangeName: scrapperExchange
 
 server:
   port: 8080
@@ -11,3 +13,11 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 1

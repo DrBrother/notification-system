@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.tinkoff.edu.java.bot.client.ScrapperClient;
 import ru.tinkoff.edu.java.bot.client.ScrapperClientImpl;
-import ru.tinkoff.edu.java.bot.configuration.ApplicationConfig;
+import ru.tinkoff.edu.java.bot.configuration.ApplicationProperties;
 
 
 @Configuration
@@ -14,11 +14,11 @@ import ru.tinkoff.edu.java.bot.configuration.ApplicationConfig;
 public class ScrapperClientConfiguration {
 
     private WebClient.Builder builder;
-    private ApplicationConfig applicationConfig;
+    private ApplicationProperties applicationProperties;
 
     @Bean
     public ScrapperClient scrapperWebClient() {
-        return new ScrapperClientImpl(builder.baseUrl(applicationConfig.scrapper().url()).build());
+        return new ScrapperClientImpl(builder.baseUrl(applicationProperties.scrapper().url()).build());
     }
 
 }
