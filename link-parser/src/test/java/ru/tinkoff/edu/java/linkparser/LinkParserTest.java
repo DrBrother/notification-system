@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.linkparser;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.tinkoff.edu.java.linkparser.dto.GitHubDTO;
@@ -8,9 +10,6 @@ import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 import ru.tinkoff.edu.java.linkparser.dto.StackOverflowDTO;
 import ru.tinkoff.edu.java.linkparser.impl.GitHubParser;
 import ru.tinkoff.edu.java.linkparser.impl.StackOverflowParser;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class LinkParserTest {
 
@@ -32,9 +31,10 @@ public class LinkParserTest {
 
     @Test
     public void testStackOverflow() throws MalformedURLException {
-        URL url = new URL("https://stackoverflow.com/questions/111/some-question");
+        long questionId = 111L;
+        URL url = new URL("https://stackoverflow.com/questions/" + questionId + "/some-question");
         ResponseContainer<ILinkDTO> response = PARSER.parseChain(url);
-        Assertions.assertEquals(new StackOverflowDTO(111), response.response());
+        Assertions.assertEquals(new StackOverflowDTO(questionId), response.response());
     }
 
     @Test

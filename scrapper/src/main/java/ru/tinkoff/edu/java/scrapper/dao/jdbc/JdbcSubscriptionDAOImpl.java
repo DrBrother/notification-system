@@ -1,5 +1,8 @@
 package ru.tinkoff.edu.java.scrapper.dao.jdbc;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,10 +12,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.SubscriptionDAO;
 import ru.tinkoff.edu.java.scrapper.entity.Subscription;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "app", name = "databaseAccessType", havingValue = "jdbc")

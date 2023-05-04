@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.service;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,15 +10,11 @@ import ru.tinkoff.edu.java.linkparser.dto.GitHubDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 import ru.tinkoff.edu.java.linkparser.dto.StackOverflowDTO;
-import ru.tinkoff.edu.java.scrapper.configuration.ApplicationConfig;
 import ru.tinkoff.edu.java.scrapper.configuration.ApplicationProperties;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.service.linkService.GitHubService;
 import ru.tinkoff.edu.java.scrapper.service.linkService.StackOverflowService;
-
-import java.time.OffsetDateTime;
-import java.util.List;
 
 @AllArgsConstructor
 @Service

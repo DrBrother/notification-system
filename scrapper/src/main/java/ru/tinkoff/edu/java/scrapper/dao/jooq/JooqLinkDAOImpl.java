@@ -1,5 +1,10 @@
 package ru.tinkoff.edu.java.scrapper.dao.jooq;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -9,13 +14,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.LinkRecord;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.List;
-
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.Tables.LINK;
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.tables.Subscription.SUBSCRIPTION;
 
@@ -91,12 +89,12 @@ public class JooqLinkDAOImpl implements LinkDAO {
         }
     }
 
-    private ru.tinkoff.edu.java.scrapper.entity.Link convertFromRecord(Record record) {
+    private ru.tinkoff.edu.java.scrapper.entity.Link convertFromRecord(Record recordJooq) {
         try {
             return new ru.tinkoff.edu.java.scrapper.entity.Link(
-                    record.getValue(LINK.ID), new URL(record.getValue(LINK.URL)),
-                    OffsetDateTime.of(record.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
-                    OffsetDateTime.of(record.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
+                recordJooq.getValue(LINK.ID), new URL(recordJooq.getValue(LINK.URL)),
+                    OffsetDateTime.of(recordJooq.getValue(LINK.CHECKTIME), ZoneOffset.UTC),
+                    OffsetDateTime.of(recordJooq.getValue(LINK.UPDATETIME), ZoneOffset.UTC));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

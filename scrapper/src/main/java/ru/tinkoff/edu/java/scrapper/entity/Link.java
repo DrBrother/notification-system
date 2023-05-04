@@ -1,11 +1,10 @@
 package ru.tinkoff.edu.java.scrapper.entity;
 
+import java.net.URL;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.net.URL;
-import java.time.OffsetDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor

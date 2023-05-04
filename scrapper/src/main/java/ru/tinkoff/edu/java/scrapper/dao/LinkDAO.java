@@ -1,10 +1,9 @@
 package ru.tinkoff.edu.java.scrapper.dao;
 
-import ru.tinkoff.edu.java.scrapper.entity.Link;
-
 import java.net.URL;
 import java.time.OffsetDateTime;
 import java.util.List;
+import ru.tinkoff.edu.java.scrapper.entity.Link;
 
 public interface LinkDAO {
 

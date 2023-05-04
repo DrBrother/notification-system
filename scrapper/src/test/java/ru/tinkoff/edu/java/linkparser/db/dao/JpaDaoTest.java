@@ -1,6 +1,9 @@
 package ru.tinkoff.edu.java.linkparser.db.dao;
 
 import jakarta.annotation.PostConstruct;
+import java.net.URL;
+import java.time.OffsetDateTime;
+import java.util.Random;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +12,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkparser.db.IntegrationEnvironment;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
-import ru.tinkoff.edu.java.scrapper.dao.jpa.*;
+import ru.tinkoff.edu.java.scrapper.dao.jpa.JpaChatDAOImpl;
+import ru.tinkoff.edu.java.scrapper.dao.jpa.JpaChatRepository;
+import ru.tinkoff.edu.java.scrapper.dao.jpa.JpaLinkDAOImpl;
+import ru.tinkoff.edu.java.scrapper.dao.jpa.JpaLinkRepository;
+import ru.tinkoff.edu.java.scrapper.dao.jpa.JpaSubscriptionDAOImpl;
+import ru.tinkoff.edu.java.scrapper.dao.jpa.JpaSubscriptionRepository;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
-
-import java.net.URL;
-import java.time.OffsetDateTime;
-import java.util.Random;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {ScrapperApplication.class, IntegrationEnvironment.IntegrationEnvironmentConfiguration.class})

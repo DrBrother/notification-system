@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.service;
 
+import java.net.URL;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,9 +11,6 @@ import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.dao.SubscriptionDAO;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.entity.Subscription;
-
-import java.net.URL;
-import java.util.List;
 
 @Slf4j
 @AllArgsConstructor

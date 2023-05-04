@@ -1,5 +1,7 @@
 package ru.tinkoff.edu.java.scrapper.dao.jpa;
 
+import java.util.HashSet;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
@@ -7,9 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.ChatDAO;
 import ru.tinkoff.edu.java.scrapper.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.entity.jpa.ChatEntity;
-
-import java.util.HashSet;
-import java.util.List;
 
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "app", name = "databaseAccessType", havingValue = "jpa")

@@ -1,5 +1,9 @@
 package ru.tinkoff.edu.java.scrapper.dao.jpa;
 
+import java.net.URL;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,11 +13,6 @@ import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.entity.jpa.LinkEntity;
 import ru.tinkoff.edu.java.scrapper.entity.jpa.SubscriptionEntity;
-
-import java.net.URL;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "app", name = "databaseAccessType", havingValue = "jpa")

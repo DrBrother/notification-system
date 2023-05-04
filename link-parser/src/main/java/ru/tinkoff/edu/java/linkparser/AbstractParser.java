@@ -1,12 +1,11 @@
 package ru.tinkoff.edu.java.linkparser;
 
-import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
-import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
+import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 
 public abstract non-sealed class AbstractParser implements Parser {
 
@@ -36,6 +35,7 @@ public abstract non-sealed class AbstractParser implements Parser {
     }
 
     /**
+     * Element of parseChain
      * @return 'null' if url has unsupported host; 'ResponseContainer<>(null)' if uncorrected link, but supported host
      */
     protected abstract ResponseContainer<ILinkDTO> parseInternal(URL url);

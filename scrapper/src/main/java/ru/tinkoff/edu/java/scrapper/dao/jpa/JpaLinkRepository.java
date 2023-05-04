@@ -1,13 +1,11 @@
 package ru.tinkoff.edu.java.scrapper.dao.jpa;
 
+import java.time.OffsetDateTime;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jpa.LinkEntity;
-
-import java.time.OffsetDateTime;
-import java.util.List;
 
 public interface JpaLinkRepository extends JpaRepository<LinkEntity, Long> {
 

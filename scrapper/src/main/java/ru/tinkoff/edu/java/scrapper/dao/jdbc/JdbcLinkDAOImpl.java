@@ -1,15 +1,5 @@
 package ru.tinkoff.edu.java.scrapper.dao.jdbc;
 
-import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
-import ru.tinkoff.edu.java.scrapper.entity.Link;
-
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +9,15 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
+import ru.tinkoff.edu.java.scrapper.entity.Link;
 
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "app", name = "databaseAccessType", havingValue = "jdbc")
