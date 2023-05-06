@@ -1,9 +1,12 @@
 app:
   test: "i will work in Tinkoff(scrapper)"
-  stackoverflow: "https://api.stackexchange.com/2.3"
-  github: "https://api.github.com"
+  linkCheckPeriodMinutes: 20
+  clients:
+    stackoverflow: "https://api.stackexchange.com/2.3"
+    github: "https://api.github.com"
+    bot: "http://127.0.0.1:8080"
   scheduler:
-    interval: 7500
+    interval: 15000
 
 server:
   port: 8081
@@ -11,3 +14,10 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/scrapper
+    username:
+    password:
+    driverClassName: org.postgresql.Driver

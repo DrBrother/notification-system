@@ -36,21 +36,25 @@ public class TrackCommand implements Command {
 
         if (link != null) {
             try {
-                AddLinkRequest addLinkRequest = new AddLinkRequest(new URL(link));
-                LinkResponse response;
-                try {
-                    response = client.addLink(chatId, addLinkRequest).block();
-                } catch (Exception e) {
-//                  пока что ловлю Exception, потому что в контроллерах заглушки
-                    return new SendMessage(chatId, e.getMessage());
-                }
-                return new SendMessage(chatId, "Ссылка добавлена: " + response.link());
+                return getSendMessage(chatId, link);
             } catch (MalformedURLException e) {
                 return new SendMessage(chatId, "Ссылка не соответствует формату URL");
             }
         } else {
             return new SendMessage(chatId, "Ссылка не указана");
         }
+    }
+
+    private SendMessage getSendMessage(Long chatId, String link) throws MalformedURLException {
+        AddLinkRequest addLinkRequest = new AddLinkRequest(new URL(link));
+        LinkResponse response;
+        try {
+            response = client.addLink(chatId, addLinkRequest).block();
+        } catch (Exception e) {
+            // пока что ловлю Exception, потому что в контроллерах заглушки
+            return new SendMessage(chatId, e.getMessage().split(": ")[1]);
+        }
+        return new SendMessage(chatId, "Ссылка добавлена: " + response.link());
     }
 
     private String getLink(Update update) {

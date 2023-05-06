@@ -12,10 +12,11 @@
         <module>bot</module>
         <module>link-parser</module>
         <module>scrapper</module>
+        <module>common-dto</module>
+        <module>scrapper-jooq</module>
     </modules>
 
     <name>notification-system</name>
-
 
     <properties>
         <revision>1.0-SNAPSHOT</revision>

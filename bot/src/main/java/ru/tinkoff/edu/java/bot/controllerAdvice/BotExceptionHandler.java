@@ -8,6 +8,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.tinkoff.edu.java.bot.dto.response.ApiErrorResponse;
+import ru.tinkoff.edu.java.common.exception.constants.BotExceptionConstants;
 
 @RestControllerAdvice
 public class BotExceptionHandler {
