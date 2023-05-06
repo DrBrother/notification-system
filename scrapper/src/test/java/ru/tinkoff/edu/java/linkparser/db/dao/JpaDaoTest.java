@@ -5,14 +5,11 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkparser.db.IntegrationEnvironment;
 import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
-import ru.tinkoff.edu.java.scrapper.dao.jdbc.JdbcChatDAOImpl;
-import ru.tinkoff.edu.java.scrapper.dao.jdbc.JdbcLinkDAOImpl;
-import ru.tinkoff.edu.java.scrapper.dao.jdbc.JdbcSubscriptionDAOImpl;
+import ru.tinkoff.edu.java.scrapper.dao.jpa.*;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 
 import java.net.URL;
@@ -22,21 +19,25 @@ import java.util.Random;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {ScrapperApplication.class, IntegrationEnvironment.IntegrationEnvironmentConfiguration.class})
-public class JdbcDaoTest extends IntegrationEnvironment implements TestDAO {
+public class JpaDaoTest extends IntegrationEnvironment implements TestDAO {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private JpaLinkRepository jpaLinkRepository;
+    @Autowired
+    private JpaChatRepository jpaChatRepository;
+    @Autowired
+    private JpaSubscriptionRepository jpaSubscriptionRepository;
 
-    private JdbcChatDAOImpl chatDao;
-    private JdbcLinkDAOImpl linkDao;
-    private JdbcSubscriptionDAOImpl subscriptionDao;
+    private JpaChatDAOImpl chatDao;
+    private JpaLinkDAOImpl linkDao;
+    private JpaSubscriptionDAOImpl subscriptionDao;
 
     @PostConstruct
     @Override
     public void init() {
-        chatDao = new JdbcChatDAOImpl(jdbcTemplate);
-        linkDao = new JdbcLinkDAOImpl(jdbcTemplate);
-        subscriptionDao = new JdbcSubscriptionDAOImpl(jdbcTemplate);
+        linkDao = new JpaLinkDAOImpl(jpaLinkRepository, jpaSubscriptionRepository);
+        chatDao = new JpaChatDAOImpl(jpaChatRepository);
+        subscriptionDao = new JpaSubscriptionDAOImpl(jpaSubscriptionRepository, jpaChatRepository);
     }
 
     @Test

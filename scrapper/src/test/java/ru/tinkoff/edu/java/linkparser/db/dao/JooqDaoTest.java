@@ -1,13 +1,15 @@
 package ru.tinkoff.edu.java.linkparser.db.dao;
 
+import jakarta.annotation.PostConstruct;
 import lombok.SneakyThrows;
+import org.jooq.DSLContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.linkparser.db.IntegrationEnvironment;
+import ru.tinkoff.edu.java.scrapper.ScrapperApplication;
 import ru.tinkoff.edu.java.scrapper.dao.jooq.JooqChatDAOImpl;
 import ru.tinkoff.edu.java.scrapper.dao.jooq.JooqLinkDAOImpl;
 import ru.tinkoff.edu.java.scrapper.dao.jooq.JooqSubscriptionDAOImpl;
@@ -19,16 +21,23 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@ContextConfiguration(classes = IntegrationEnvironment.IntegrationEnvironmentConfiguration.class)
+@SpringBootTest(classes = {ScrapperApplication.class, IntegrationEnvironment.IntegrationEnvironmentConfiguration.class})
 public class JooqDaoTest extends IntegrationEnvironment implements TestDAO {
 
     @Autowired
+    private DSLContext dslContext;
+
     private JooqChatDAOImpl chatDao;
-    @Autowired
     private JooqLinkDAOImpl linkDao;
-    @Autowired
     private JooqSubscriptionDAOImpl subscriptionDao;
+
+    @PostConstruct
+    @Override
+    public void init() {
+        linkDao = new JooqLinkDAOImpl(dslContext);
+        chatDao = new JooqChatDAOImpl(dslContext);
+        subscriptionDao = new JooqSubscriptionDAOImpl(dslContext);
+    }
 
     @Test
     @Transactional

@@ -10,7 +10,7 @@ public interface LinkDAO {
 
     Link add(URL link);
 
-    int update(Link link);
+    void update(Link link);
 
     Link findByUrl(URL link);
 

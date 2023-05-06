@@ -3,6 +3,7 @@ package ru.tinkoff.edu.java.scrapper.configuration;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
+import ru.tinkoff.edu.java.scrapper.dao.DatabaseAccessType;
 import ru.tinkoff.edu.java.scrapper.scheduler.Scheduler;
 
 import java.util.Objects;
@@ -12,7 +13,8 @@ import java.util.Objects;
 public record ApplicationProperties(@NotNull String test,
                                     @NotNull Clients clients,
                                     @NotNull Scheduler scheduler,
-                                    Integer linkCheckPeriodMinutes) {
+                                    Integer linkCheckPeriodMinutes,
+                                    @NotNull DatabaseAccessType databaseAccessType) {
 
     private static final String STACKOVERFLOW = "https://api.stackexchange.com/2.3";
     private static final String GITHUB = "https://api.github.com";

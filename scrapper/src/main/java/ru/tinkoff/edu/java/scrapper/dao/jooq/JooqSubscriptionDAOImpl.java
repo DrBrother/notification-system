@@ -1,16 +1,19 @@
 package ru.tinkoff.edu.java.scrapper.dao.jooq;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.SubscriptionDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.SubscriptionRecord;
 
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.Tables.SUBSCRIPTION;
 
-@AllArgsConstructor
-//@Repository
+@RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "app", name = "databaseAccessType", havingValue = "jooq")
+@Repository
 public class JooqSubscriptionDAOImpl implements SubscriptionDAO {
 
     private final DSLContext dslContext;
@@ -39,10 +42,10 @@ public class JooqSubscriptionDAOImpl implements SubscriptionDAO {
                 .from(SUBSCRIPTION)
                 .where(SUBSCRIPTION.CHAT_ID.eq(chatId), SUBSCRIPTION.LINK_ID.eq(linkId))
                 .fetch()
-                .map(this::convert).stream().findFirst().orElse(null);
+                .map(this::convertFromRecord1).stream().findFirst().orElse(null);
     }
 
-    private ru.tinkoff.edu.java.scrapper.entity.Subscription convert(Record1 record1) {
+    private ru.tinkoff.edu.java.scrapper.entity.Subscription convertFromRecord1(Record1 record1) {
         SubscriptionRecord subscriptionRecord = (SubscriptionRecord) record1.getValue(0);
         return new ru.tinkoff.edu.java.scrapper.entity.Subscription(subscriptionRecord.getValue(SUBSCRIPTION.CHAT_ID),
                 subscriptionRecord.getValue(SUBSCRIPTION.LINK_ID));
