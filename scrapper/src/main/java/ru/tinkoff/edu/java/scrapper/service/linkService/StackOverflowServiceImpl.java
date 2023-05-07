@@ -6,13 +6,13 @@ import ru.tinkoff.edu.java.common.dto.LinkUpdate;
 import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 import ru.tinkoff.edu.java.linkparser.dto.StackOverflowDTO;
-import ru.tinkoff.edu.java.scrapper.client.BotClient;
 import ru.tinkoff.edu.java.scrapper.client.StackOverflowClient;
 import ru.tinkoff.edu.java.scrapper.dao.ChatDAO;
 import ru.tinkoff.edu.java.scrapper.dao.LinkDAO;
 import ru.tinkoff.edu.java.scrapper.dto.response.StackOverflowResponse;
 import ru.tinkoff.edu.java.scrapper.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
+import ru.tinkoff.edu.java.scrapper.service.MessageService;
 
 import java.util.List;
 
@@ -23,8 +23,7 @@ public class StackOverflowServiceImpl implements StackOverflowService {
     private final StackOverflowClient stackOverflowClient;
     private final LinkDAO linkDao;
     private final ChatDAO chatDao;
-    private final BotClient botClient;
-
+    private final MessageService messageService;
 
     @Override
     public void processStackOverflow(ResponseContainer<ILinkDTO> response, Link link) {
@@ -38,8 +37,8 @@ public class StackOverflowServiceImpl implements StackOverflowService {
             List<Chat> ids = chatDao.findAllByLink(link.getId());
             link.setUpdateTime(stackOverflowResponse.items()[0].lastEditTime());
             linkDao.update(link);
-            botClient.pullLinks(new LinkUpdate(link.getId(), link.getUrl().toString(), "",
-                    ids.stream().map(Chat::getId).toArray(Long[]::new))).block();
+            messageService.sendMessage(new LinkUpdate(link.getId(), link.getUrl().toString(), "",
+                    ids.stream().map(Chat::getId).toArray(Long[]::new)));
         }
         linkDao.update(link);
     }

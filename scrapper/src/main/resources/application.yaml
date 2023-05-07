@@ -8,6 +8,9 @@ app:
   scheduler:
     interval: 15000
   databaseAccessType: jdbc
+  queueName: scrapperQueue
+  exchangeName: scrapperExchange
+  useQueue: true
 
 server:
   port: 8081
