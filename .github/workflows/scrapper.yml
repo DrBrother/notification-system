@@ -33,13 +33,13 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: env.REGISTRY
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Docker image scrapper
-        run: docker build -f scrapper.Dockerfile -t ${{ env.REGISTRY}}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest .
+        run: docker build -f scrapper.Dockerfile -t ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest .
       - name: Push Docker image scrapper
-        run: docker push ${{ env.REGISTRY}}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest
+        run: docker push ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:latest
   checkstyle:
     runs-on: ubuntu-22.04
     steps:
