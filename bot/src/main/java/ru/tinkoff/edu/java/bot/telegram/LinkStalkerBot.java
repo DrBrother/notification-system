@@ -7,17 +7,20 @@ import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.BaseResponse;
 import java.util.List;
+import ru.tinkoff.edu.java.bot.service.MetricService;
 import ru.tinkoff.edu.java.bot.telegram.processor.UserMessageProcessor;
 
 public class LinkStalkerBot implements Bot {
 
     private final TelegramBot telegramBot;
     private final UserMessageProcessor userMessageProcessor;
+    private final MetricService metricService;
 
-    public LinkStalkerBot(TelegramBot telegramBot, UserMessageProcessor userMessageProcessor) {
+    public LinkStalkerBot(TelegramBot telegramBot, UserMessageProcessor userMessageProcessor, MetricService metricService) {
         this.telegramBot = telegramBot;
         this.userMessageProcessor = userMessageProcessor;
         this.telegramBot.setUpdatesListener(this);
+        this.metricService = metricService;
     }
 
     @Override
@@ -30,6 +33,7 @@ public class LinkStalkerBot implements Bot {
         for (Update update : updates) {
             SendMessage message = userMessageProcessor.process(update);
             execute(message);
+            metricService.incrementHandledMessageCount();
         }
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }

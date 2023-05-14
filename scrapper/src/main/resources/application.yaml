@@ -25,3 +25,23 @@ spring:
     username:
     password:
     driverClassName: org.postgresql.Driver
+  application:
+    name: scrapper
+
+management:
+  server:
+    port: 9081
+  endpoint:
+    prometheus:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      path-mapping:
+        prometheus: /metrics
+      exposure:
+        include: health,info,prometheus
+      base-path: /
+  metrics:
+    tags:
+      application: ${spring.application.name}
