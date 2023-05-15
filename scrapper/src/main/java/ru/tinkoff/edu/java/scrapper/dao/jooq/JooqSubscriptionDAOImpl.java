@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.SubscriptionDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.SubscriptionRecord;
-
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.Tables.SUBSCRIPTION;
 
 @RequiredArgsConstructor

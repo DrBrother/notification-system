@@ -1,5 +1,8 @@
 package ru.tinkoff.edu.java.scrapper.service.linkService;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.TimeZone;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.common.dto.LinkUpdate;
@@ -15,10 +18,6 @@ import ru.tinkoff.edu.java.scrapper.dto.response.GitHubResponse;
 import ru.tinkoff.edu.java.scrapper.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.service.MessageService;
-
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.TimeZone;
 
 @AllArgsConstructor
 @Service

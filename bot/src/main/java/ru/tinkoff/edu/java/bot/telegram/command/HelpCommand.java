@@ -3,10 +3,9 @@ package ru.tinkoff.edu.java.bot.telegram.command;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import jakarta.annotation.PostConstruct;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @AllArgsConstructor
 @Component
@@ -18,7 +17,7 @@ public class HelpCommand implements Command {
     private List<Command> commands;
 
     @PostConstruct
-    private void postConstruct(){
+    private void postConstruct() {
         commands.add(this);
     }
 

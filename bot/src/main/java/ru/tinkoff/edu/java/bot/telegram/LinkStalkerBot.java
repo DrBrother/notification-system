@@ -6,9 +6,8 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.BaseResponse;
-import ru.tinkoff.edu.java.bot.telegram.processor.UserMessageProcessor;
-
 import java.util.List;
+import ru.tinkoff.edu.java.bot.telegram.processor.UserMessageProcessor;
 
 public class LinkStalkerBot implements Bot {
 

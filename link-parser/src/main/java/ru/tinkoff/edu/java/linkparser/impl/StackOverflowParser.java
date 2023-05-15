@@ -1,12 +1,11 @@
 package ru.tinkoff.edu.java.linkparser.impl;
 
+import java.net.URL;
+import java.util.List;
 import ru.tinkoff.edu.java.linkparser.AbstractParser;
 import ru.tinkoff.edu.java.linkparser.dto.ILinkDTO;
 import ru.tinkoff.edu.java.linkparser.dto.ResponseContainer;
 import ru.tinkoff.edu.java.linkparser.dto.StackOverflowDTO;
-
-import java.net.URL;
-import java.util.List;
 
 public class StackOverflowParser extends AbstractParser {
 

@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.dao.jooq;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
@@ -8,9 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tinkoff.edu.java.scrapper.dao.ChatDAO;
 import ru.tinkoff.edu.java.scrapper.entity.jooq.tables.records.ChatRecord;
-
-import java.util.List;
-
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.Tables.CHAT;
 import static ru.tinkoff.edu.java.scrapper.entity.jooq.Tables.SUBSCRIPTION;
 

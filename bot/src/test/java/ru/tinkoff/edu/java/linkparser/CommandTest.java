@@ -4,6 +4,8 @@ import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,13 +20,11 @@ import ru.tinkoff.edu.java.bot.dto.response.LinkResponse;
 import ru.tinkoff.edu.java.bot.dto.response.ListLinksResponse;
 import ru.tinkoff.edu.java.bot.telegram.command.ListCommand;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 @ExtendWith(MockitoExtension.class)
 public class CommandTest {
 
     private static final Long CHAT_ID = 1L;
+    public static final String PARAMETERS = "parameters";
 
     @InjectMocks
     private ListCommand command;
@@ -46,8 +46,8 @@ public class CommandTest {
 
         SendMessage sendMessage = command.handle(update);
 
-        Assertions.assertEquals(ReflectionTestUtils.getField(sendMessage, "parameters"),
-                (ReflectionTestUtils.getField(expected, "parameters")));
+        Assertions.assertEquals(ReflectionTestUtils.getField(sendMessage, PARAMETERS),
+                (ReflectionTestUtils.getField(expected, PARAMETERS)));
     }
 
     @Test
@@ -61,8 +61,8 @@ public class CommandTest {
 
         SendMessage sendMessage = command.handle(update);
 
-        Assertions.assertEquals(ReflectionTestUtils.getField(sendMessage, "parameters"),
-                (ReflectionTestUtils.getField(expected, "parameters")));
+        Assertions.assertEquals(ReflectionTestUtils.getField(sendMessage, PARAMETERS),
+                (ReflectionTestUtils.getField(expected, PARAMETERS)));
     }
 
     private SendMessage expectedMessage(ListLinksResponse response) {

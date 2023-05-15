@@ -1,5 +1,6 @@
 package ru.tinkoff.edu.java.scrapper.service.linkService;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.edu.java.common.dto.LinkUpdate;
@@ -13,8 +14,6 @@ import ru.tinkoff.edu.java.scrapper.dto.response.StackOverflowResponse;
 import ru.tinkoff.edu.java.scrapper.entity.Chat;
 import ru.tinkoff.edu.java.scrapper.entity.Link;
 import ru.tinkoff.edu.java.scrapper.service.MessageService;
-
-import java.util.List;
 
 @AllArgsConstructor
 @Service
