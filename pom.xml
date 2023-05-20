@@ -34,6 +34,8 @@
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <jooq.version>3.17.6</jooq.version>
+        <micrometer-tracing-bridge-brave.version>1.1.0</micrometer-tracing-bridge-brave.version>
+        <micrometer-registry-prometheus.version>1.10.5</micrometer-registry-prometheus.version>
     </properties>
 
     <dependencyManagement>
@@ -98,6 +100,16 @@
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>${micrometer-registry-prometheus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bridge-brave</artifactId>
+                <version>${micrometer-tracing-bridge-brave.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
